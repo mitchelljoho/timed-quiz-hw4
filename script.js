@@ -7,7 +7,9 @@ var qObj = questions;
 //initialize local storage
 var localStorage = window.localStorage;
 var scoresArray = [];
-localStorage.setItem("scores", JSON.stringify(scoresArray));
+if(localStorage.getItem("scores") == "[]") {
+    localStorage.setItem("scores", JSON.stringify(scoresArray));
+}
 
 //header button
 scoreButton.addEventListener("click", drawHighscores);
