@@ -145,7 +145,7 @@ function drawHighscores() {
     //add listeners
     backButton.addEventListener("click", drawOpener);
     clearButton.addEventListener("click", function() {
-        clearScores();
+        localStorage.setItem("scores", JSON.stringify(scoresArray));
         document.querySelector("#scoresDiv").innerHTML = "";
     });
     //append objects
@@ -206,10 +206,4 @@ function startTimer() {
         }
         timer.textContent = "Time: " + time--;
     }, 1000);
-}
-
-//clears the scores in local storage
-function clearScores() {
-    var emptyArray = [];
-    localStorage.setItem("scores", emptyArray);
 }
