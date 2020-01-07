@@ -7,7 +7,7 @@ var qObj = questions;
 //initialize local storage
 var localStorage = window.localStorage;
 var scoresArray = [];
-if(localStorage.getItem("scores") == "[]") {
+if(localStorage.getItem("scores") === "[]" || localStorage.getItem("scores") === null) {
     localStorage.setItem("scores", JSON.stringify(scoresArray));
 }
 
