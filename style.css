@@ -7,3 +7,9 @@
 #header {
     height: 100px;
 }
+#text-area {
+    font-size: 10pt;
+}
+#timer {
+    float: right;
+}
