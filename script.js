@@ -1,6 +1,7 @@
 var contentBox = document.querySelector("#content-div");
 var scoreButton = document.querySelector("#highscores");
 var cardDiv = document.querySelector("#card");
+var timer = document.querySelector("#timer");
 var qObj = questions;
 
 //initialize local storage
@@ -10,17 +11,22 @@ localStorage.setItem("scores", JSON.stringify(scoresArray));
 
 //header button
 scoreButton.addEventListener("click", drawHighscores);
-
+//global timer variable so it can be reduced by getting questions wrong
+var time = 0
 //draw quiz intro initially
 drawOpener();
 //variable to make sure we try to print the correct number of questions
 var target = 0;
-//holds number of correct answers
-var stats = 0;
+//holds number of correct/wrong answers
+var correct = 0;
+var wrong = 0;
 
 function drawOpener() {
-    //empty div and reset counter
+    //empty div and reset counters and time
     target = 0;
+    timer.textContent = "Time: 0";
+    correct = 0;
+    wrong = 0;
     contentBox.innerHTML = "";
     //draw elements
     var header = document.createElement("h1");
@@ -36,6 +42,7 @@ function drawOpener() {
     startButton.addEventListener("click", function() {
         //start the quiz
         runQuiz();
+        startTimer();
     });
     contentBox.appendChild(startButton);
 }
@@ -70,8 +77,11 @@ function drawQuestion(question) {
         if(event.target.id === "button") {
             if(event.target.innerHTML.includes(question.answer)) {
                 showAnswer("c");
+                correct++;
             } else {
                 showAnswer("w");
+                wrong++;
+                time -= 15;
             }
             if(target < qObj.length - 1) {
                 target++;
@@ -92,7 +102,7 @@ function drawFinish() {
     var header = document.createElement("h1");
     header.textContent = "Highscores";
     var score = document.createElement("p");
-    score.textContent = "Your high score is "
+    score.textContent = "Your high score is: " + time
     //provide a box to enter initials
     var textBox = document.createElement("label");
     textBox.textContent = "Enter Initials:"
@@ -100,7 +110,6 @@ function drawFinish() {
     textArea.setAttribute("type", "text");
     textArea.setAttribute("id", "text-area");
     textBox.appendChild(textArea);
-    console.log(textArea);
     //create button
     var submitButton = document.createElement("button");
     submitButton.textContent = "Submit";
@@ -126,7 +135,7 @@ function drawHighscores() {
     //draw header
     var header = document.createElement("h1");
     header.textContent = "Highscores";
-    //draw buttons
+    //draw buttons and set attributes
     var backButton = document.createElement("button");
     var clearButton = document.createElement("button");
     backButton.textContent = "Back";
@@ -135,6 +144,10 @@ function drawHighscores() {
     clearButton.setAttribute("id", "button");
     //add listeners
     backButton.addEventListener("click", drawOpener);
+    clearButton.addEventListener("click", function() {
+        clearScores();
+        document.querySelector("#scoresDiv").innerHTML = "";
+    });
     //append objects
     contentBox.appendChild(header);
     printScores();
@@ -159,8 +172,7 @@ function showAnswer(answer) {
 
 //create users score as a string and returns it
 function getUserScore(initials) {
-    var timeLeft = 0;
-    var score = initials + ": " + stats + " Correct " + (qObj.length - stats) + " Wrong " + timeLeft + " Seconds Left";
+    var score = initials + ": " + time;
     return score;
 }
 
@@ -174,14 +186,30 @@ function addScore(score) {
 //retrieve scores from local storage
 function printScores() {
     var scores = JSON.parse(localStorage.getItem("scores"));
+    var newDiv = document.createElement("div");
+    newDiv.setAttribute("id", "scoresDiv");
     for(var i = 0; i < scores.length; i++) {
         var scoreTag = document.createElement("h2");
         scoreTag.textContent = scores[i];
-        contentBox.appendChild(scoreTag);
+        newDiv.appendChild(scoreTag);
     }
+    contentBox.appendChild(newDiv);
 }
 
 //starts timer countdown
 function startTimer() {
+    timer.textContent = "Time: " + (15 * (qObj.length));
+    time = 15 * (qObj.length);
+    var interval = setInterval(function() {
+        if(correct + wrong === qObj.length) {
+            clearInterval(interval);
+        }
+        timer.textContent = "Time: " + time--;
+    }, 1000);
+}
 
+//clears the scores in local storage
+function clearScores() {
+    var emptyArray = [];
+    localStorage.setItem("scores", emptyArray);
 }
