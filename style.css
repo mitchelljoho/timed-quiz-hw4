@@ -1,15 +1,35 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: lightblue;
+}
 #content-div {
     text-align: center;
+    border: 2px solid grey;
+    background-color: white;
+    height: fit-content;
+    width: fit-content;
 }
 #button {
     background-color: red;
+    padding: 5px;
 }
 #header {
     height: 100px;
+    border-bottom: 2px solid grey;
+    margin-bottom: 5%;
+    background-color: white;
+    padding-top: 2%;
 }
 #text-area {
     font-size: 10pt;
 }
 #timer {
     float: right;
+    font-size: 20pt;
+}
+#highscores {
+    border: none;
+    border-bottom: 2px solid grey;
+    font-size: 20pt;
+    background-color: white;
 }

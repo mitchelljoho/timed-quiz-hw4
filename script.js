@@ -7,7 +7,8 @@ var qObj = questions;
 //initialize local storage
 var localStorage = window.localStorage;
 var scoresArray = [];
-if(localStorage.getItem("scores") === "[]" || localStorage.getItem("scores") === null) {
+if(localStorage.getItem("scores") === "") {
+    console.log("fart");
     localStorage.setItem("scores", JSON.stringify(scoresArray));
 }
 
@@ -132,6 +133,8 @@ function drawFinish() {
 }
 
 function drawHighscores() {
+    correct = qObj.length;
+    wrong = 0;
     //empty the div
     contentBox.innerHTML = "";
     //draw header

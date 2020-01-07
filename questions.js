@@ -13,6 +13,16 @@ var questions = [
         title: "Most widely used coding language for web development:",
         choices: ["C#", "javascript", "python", "ruby"],
         answer: "javascript"
+    },
+    {
+        title: "The math operator \"%\" is used to calculate what?",
+        choices: ["product", "remainder", "sum", "quotient"],
+        answer: "remainder"
+    },
+    {
+        title: "What language does not use curly brackets like { and }?",
+        choices: ["java", "objective-c", "C#", "python"],
+        answer: "python"
     }
   ];
   
