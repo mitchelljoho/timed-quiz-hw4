@@ -183,6 +183,9 @@ function getUserScore(initials) {
 //add to highscores list
 function addScore(score) {
     var scores = JSON.parse(localStorage.getItem("scores"));
+    if(scores === null) {
+        localStorage.setItem("scores", JSON.stringify(scoresArray));
+    }
     scores[scores.length] = score;
     localStorage.setItem("scores", JSON.stringify(scores));
 }
