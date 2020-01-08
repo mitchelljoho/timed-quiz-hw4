@@ -186,6 +186,7 @@ function addScore(score) {
     if(scores === null) {
         localStorage.setItem("scores", JSON.stringify(scoresArray));
     }
+    var scores = JSON.parse(localStorage.getItem("scores"));
     scores[scores.length] = score;
     localStorage.setItem("scores", JSON.stringify(scores));
 }
