@@ -6,9 +6,8 @@ var qObj = questions;
 
 //initialize local storage
 var localStorage = window.localStorage;
-var scoresArray = [];
+var scoresArray = [""];
 if(localStorage.getItem("scores") === "") {
-    console.log("fart");
     localStorage.setItem("scores", JSON.stringify(scoresArray));
 }
 
